@@ -16,7 +16,7 @@ abstract class Kohana_NoSQL
 	 */
 	protected function __construct($name, array $config)
 	{
-		require_once Kohana::find_file('vendor/aws/', '');
+		require_once Kohana::find_file('vendor/aws', 'sdk.class');
 
 		parent::__construct($name, $config;
 	}
