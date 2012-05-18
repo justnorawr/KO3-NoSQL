@@ -4,7 +4,6 @@
  *
  * @package		NoSQL
  * @category		MongoDB
- * @category		AmazonWebServices
  * @uses		http://www.php.net/manual/en/book.mongo.php
  * @author		Nicholas Curtis		<nich.curtis@gmail.com>
  */
@@ -26,10 +25,10 @@ class Kohana_NoSQL_Mongo extends NoSQL
 	}
 
 	/**
-	 * returns instance of AmazonSimpleDB
+	 * returns instance of Mongo
 	 *
 	 *
-	 * @return 	AmazonSimpleDB
+	 * @return 	Mongo
 	 */
 	public function mongo()
 	{
