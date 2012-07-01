@@ -158,23 +158,6 @@ abstract class Kohana_NoSQL
 	abstract public function create($name, Array $options=array());
 
 	/**
-	 * Update NoSQL data store
-	 *
-	 * @param	string		name
-	 * @param	array 	    	options - unique to each nosql db type
-	 * @return	array
-	 */
-	abstract public function update($name, Array $options=array());
-
-	/**
-	 * Deletes a data store
-	 *
-	 * @param	string		name
-	 * @return	array
-	 */
-	abstract public function delete($name);
-
-	/**
 	 * Returns count of items/documents/records in data store
 	 *
 	 * @param	string    	name
