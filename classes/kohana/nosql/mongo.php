@@ -82,6 +82,58 @@ class Kohana_NoSQL_Mongo extends NoSQL
 	}
 
 	/**
+	 *
+	 *
+	 * @throws	Kohana_Exception
+	 */
+	public function update($collection, Array $options=array())
+	{
+		throw new Kohana_Exception('Can not update Mongo collection');
+	}
+
+	/**
+	 * Drops collection and deletes its indices
+	 *
+	 * @param	mixed		collection name or MongoCollection
+	 * @return	bool
+	 */
+	public function delete($collection)
+	{
+		if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
+			$benchmark = Profiler::start(__FUNCTION__, __METHOD__);
+		}
+
+		// make sure we have a MongoCollection object before we continue
+		$collection = $this->_select($collection);
+
+		if ($collection !== false)
+		{
+			if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
+				$del_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::drop');
+			}
+
+			$response = $collection->drop();
+
+			if (isset($del_benchmark)) Profiler::stop($del_benchmark);
+
+			if (Kohana::$environment >= $this->_debug)
+			{
+				echo 'MongoCollection::drop: ';
+				var_dump($response);
+			}
+
+			if ($this->_isOK($response))
+			{
+				return true;
+			}
+
+			if (isset($benchmark)) Profiler::stop($benchmark);
+		}
+
+		return false;
+	}
+
+	/**
 	 * Returns count of items items in simpledb domain
 	 *
 	 * @uses	http://www.php.net/manual/en/mongocollection.count.php
