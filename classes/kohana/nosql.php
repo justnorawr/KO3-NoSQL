@@ -155,7 +155,7 @@ abstract class Kohana_NoSQL
 	 * @param	array 	    	table options - unique to each nosql db type
 	 * @return	bool
 	 */
-	abstract public function create($name, Array $options=array());
+	abstract public function create_store($name, Array $options=array());
 
 	/**
 	 * Update NoSQL data store
@@ -164,7 +164,7 @@ abstract class Kohana_NoSQL
 	 * @param	array 	    	options - unique to each nosql db type
 	 * @return	array
 	 */
-	abstract public function update($name, Array $options=array());
+	abstract public function update_store($name, Array $options=array());
 
 	/**
 	 * Deletes a data store
@@ -172,7 +172,7 @@ abstract class Kohana_NoSQL
 	 * @param	string		name
 	 * @return	array
 	 */
-	abstract public function delete($name);
+	abstract public function delete_store($name);
 
 	/**
 	 * Returns count of items/documents/records in data store
