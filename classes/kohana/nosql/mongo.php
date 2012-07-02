@@ -323,7 +323,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 		}
 
 		if ( ! array_key_exists('item', $options) OR count($options['item']) <= 0) {
-			throw new Kohana_Exception('SimpleDB put item_name is required');
+			throw new Kohana_Exception('Mongo put item_name is required');
 		}
 		$item = $options['item'];
 		unset($options['item']);
