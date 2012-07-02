@@ -499,7 +499,8 @@ class Kohana_NoSQL_Mongo extends NoSQL
 
 		if (array_key_exists('ok', $response) AND (int) $response['ok'] === 1)
 		{
-			echo 'Response is OK' . PHP_EOL;
+			if (Kohana::$environment >= $this->_debug)
+				echo 'Response is OK' . PHP_EOL;
 			return true;
 		}
 
