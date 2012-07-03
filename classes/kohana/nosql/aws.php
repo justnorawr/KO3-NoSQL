@@ -5,7 +5,7 @@
  * @package		NoSQL
  * @author		Nicholas Curtis		<nich.curtis@gmail.com>
  */
-abstract class Kohana_NoSQL
+abstract class Kohana_NoSQL_AWS extends Kohana_NoSQL
 {
 	/**
 	 * Loads AWS PHP SDK
@@ -16,8 +16,8 @@ abstract class Kohana_NoSQL
 	 */
 	protected function __construct($name, array $config)
 	{
-		require_once Kohana::find_file('vendor/aws', 'sdk.class');
+		require_once Kohana::find_file('vendor/Amazon', 'sdk.class');
 
-		parent::__construct($name, $config;
+		parent::__construct($name, $config);
 	}
 }

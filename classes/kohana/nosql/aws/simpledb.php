@@ -20,7 +20,10 @@ class Kohana_NoSQL_AWS_Simpledb extends NoSQL_AWS
 	{
 		parent::__construct($name, $config);
 
-		$this->_simpledb = new AmazonSDB();
+		$aws_config = Kohana::$config->load('aws.credentials');
+		$aws_config = (array) $aws_config;
+
+		$this->_simpledb = new AmazonSDB($aws_config['@default']);
 	}
 
 	/**
@@ -47,7 +50,7 @@ class Kohana_NoSQL_AWS_Simpledb extends NoSQL_AWS
 	 * @param	string    	domain name
 	 * @return	bool
 	 */
-	public function create ($domain, Array $options=array())
+	public function create_store ($domain, Array $options=array())
 	{
 		if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
 			$benchmark = Profiler::start(__FUNCTION__, __METHOD__);
@@ -89,7 +92,7 @@ class Kohana_NoSQL_AWS_Simpledb extends NoSQL_AWS
 	 *
 	 * @throws	Kohana_Exception
 	 */
-	public function update ($domain, Array $options=array())
+	public function update_store ($domain, Array $options=array())
 	{
 		throw new Kohana_Exception('Can not update SimpleDB domain');
 	}
@@ -106,7 +109,7 @@ class Kohana_NoSQL_AWS_Simpledb extends NoSQL_AWS
 	 * @param	string		domain name
 	 * @return	bool
 	 */
-	public function delete ($domain)
+	public function delete_store ($domain)
 	{
 		if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
 			$benchmark = Profiler::start(__FUNCTION__, __METHOD__);

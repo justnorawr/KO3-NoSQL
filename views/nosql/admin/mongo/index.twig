@@ -9,8 +9,8 @@ $('#collection-listings').on('click', 'button.collection-delete', delete_collect
 $('form#mongo-tab-query-form').on('submit', submit_query);
 $('form#mongo-tab-insert-form').on('submit', insert_object);
 $('button#collection-create').on('click', create_collection);
-$('#mongo-result').on('click', 'button.delete_item', delete_item)
-$('#mongo-result').on('click', 'button.delete_item_browse', delete_item_browse)
+$('#mongo-result').on('click', 'button.delete_item', delete_item);
+$('#mongo-result').on('click', 'button.delete_item_browse', delete_item_browse);
 {% endblock onload %}{# End OnLoad Block #}
 
 {# Resources Block #}{% block resources %}

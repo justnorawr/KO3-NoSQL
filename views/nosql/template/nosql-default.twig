@@ -39,25 +39,19 @@
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</a>
 					<a class="brand" href="#">NoSQL Admin</a>
-					<div class="nav-collapse">
-						<ul class="nav">
-							<li class="divider-vertical"></li>
-							<li><a href="nosql_admin">Home</a></li>
-							<li class="divider-vertical"></li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Database <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li><a href="nosql_admin_mongo">Mongo</a></li>
-								</ul>
-							</li>
-						</ul>
-					</div><!-- /.nav-collapse -->
+					<ul class="nav">
+						{% for db_type, dbs in databases %}<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ db_type }} <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								{% for db_name, db in dbs %}
+								<li><a href="nosql_admin_{{ db_type }}/index">{{ db_name }}</a></li>
+								{% endfor %}
+							</ul>
+						</li>
+						<li class="divider-vertical"></li>
+						{% endfor %}
+					</ul>
 				</div>
 			</div><!-- /navbar-inner -->
 		</div>
@@ -65,7 +59,6 @@
 		<div class="content">
 			<div class="container-fluid">
 				{% block content %}
-			
 				{% endblock content %}
 			</div><!-- /container -->
 		</div><!-- /content -->
