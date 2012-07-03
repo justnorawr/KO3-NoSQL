@@ -18,10 +18,6 @@ class Controller_NoSQL_Admin extends Controller_Template_Twig
 	public function before ()
 	{
 		parent::before();
-
-		$this->config = Model::factory('config');
-
-		$this->AuthUser = Auth::instance()->get_user(false);
 	}
 	
 	/**
@@ -31,10 +27,7 @@ class Controller_NoSQL_Admin extends Controller_Template_Twig
 	 */
 	public function after ()
 	{
-		$this->template->set('version', $this->config->version);
 		$this->template->set('base_url', BASEURL);
-
-		$this->template->set('AuthUser', $this->AuthUser);
 
 		if (Kohana::$profiling === TRUE) {
 			$this->template->set('profiler', View::factory('profiler/stats'));
