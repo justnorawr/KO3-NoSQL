@@ -147,9 +147,16 @@ class Controller_NoSQL_Example_Mongo extends Controller_NoSQL_Example
 		{
 			$items = $this->Mongo->get($collection, $query, $attributes);
 
-			foreach ($items AS $item)
+			if (count($items) > 0)
 			{
-				var_dump($item);
+				foreach ($items AS $item)
+				{
+					var_dump($item);
+				}
+			}
+			else
+			{
+				echo 'No items found'.PHP_EOL;
 			}
 		}
 		catch (Exception $e)

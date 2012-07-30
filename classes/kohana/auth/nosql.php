@@ -17,7 +17,7 @@ abstract class Kohana_Auth_NoSQL extends Auth
 	{
 		parent::__construct($config);
 
-		$this->db = NoSQL::instance($this->_config['type']);
+		$this->db = NoSQL::instance($this->_config['database']);
 	}
 
 	/**

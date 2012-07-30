@@ -9,5 +9,6 @@ return array(
 	'session_key' 		=>	'yc-md-auth',
 
 	// database config group to use for Auth NoSQL driver
-	'table_name'		=>	'users'
+	'database'		=>	'default', // nosql db instance name
+	'table_name'		=>	'users' // data store name
 );

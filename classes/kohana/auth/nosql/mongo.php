@@ -29,15 +29,16 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 		{
 			$query = array('username' => $username, 'password' => $password);
 
-			// dont return password, so it does not get incuded in session
-			$attrs = array('password' => -1);
-
 			// query for user 
-			$user = $this->db->get($this->_config['table_name'], $query, $attrs);
+			$results = $this->db->get_items($this->_config['table_name'], $query);
 
-			if ($user->count() === 1)
+			if ($results->count() === 1)
 			{
-				return $this->complete_login($user[0]);
+				$user = $results->getNext();
+				
+				unset($user['password']);
+
+				return $this->complete_login($user);
 			}
 		}
 		catch (Exception $e)
@@ -61,15 +62,16 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 		{
 			$query = array('username' => $username);
 
-			// dont return password, so it does not get incuded in session
-			$attrs = array('password' => -1);
-
 			// query for user 
-			$user = $this->db->get($this->_config['table_name'], $query, $attrs);
+			$results = $this->db->get_items($this->_config['table_name'], $query);
 
-			if ($user->count() === 1)
+			if ($results->count() === 1)
 			{
-				return $this->complete_login($user[0]);
+				$user = $results->getNext();
+				
+				unset($user['password']);
+
+				return $this->complete_login($user);
 			}
 		}
 		catch (Exception $e)
@@ -99,7 +101,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 			// query for user s password
 			$user = $this->db->get($this->_config['table_name'], $query, $attrs);
 
-			if ($user->count() === 1)
+			if (count($user) === 1)
 			{
 				$password = $user[0]['password'];
 				return $password;
@@ -129,9 +131,13 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 				'username'	=>	$user['username']
 			);
 
-			$updates = array(
-				'logins'		=>	'$inc',
-				'lastlogin'	=>	time()
+			$updates = array
+			(
+				'$set' => array
+				(
+					'logins'		=>	'$inc',
+					'lastlogin'	=>	time()
+				)
 			);
 
 			$result = $this->db->update($this->_config['table_name'], $query, $updates);

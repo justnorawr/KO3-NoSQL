@@ -2,6 +2,7 @@
 
 return array
 (
+	/**
 	'dynamo' => array
 	(
 		'type'		=>	'aws_dynamo',
@@ -22,4 +23,5 @@ return array
 		'debug'		=>	40,
 		'profiling'    	=>	TRUE,
 	)
+	*/
 );

@@ -8,13 +8,18 @@
  * @category		AmazonWebServices
  * @author		Nicholas Curtis		<nich.curtis@gmail.com>
  */
-class Controller_NoSQL_Example extends Controller
+class Controller_NoSQL_Example extends Controller_Twig
 {
 	public function before ()
 	{
 		parent::before();
 
 		ob_start();
+	}
+
+	public function action_error()
+	{
+
 	}
 
 	public function after ()
