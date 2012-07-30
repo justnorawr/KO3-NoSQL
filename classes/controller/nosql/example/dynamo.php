@@ -9,24 +9,6 @@
  * @author		Nicholas Curtis		<nich.curtis@gmail.com>
  */
 
-Route::set('nosql_example_dynamo_table', 'example_dynamo/<action>(/<table>(/<read>(/<write>)))', array(
-		'action'		=>	'(create_table|update_table)'
-           ))
-	->defaults(array(
-		'controller'	=>	'nosql_example_dynamo',
-		'table'		=>	'example_table',
-		'read'		=>	10,
-		'write'		=>	10
-	));
-
-Route::set('nosql_example_dynamo_all', 'example_dynamo(/<action>(/<table>(/<hash>(/<range>))))')
-	->defaults(array(
-		'controller'	=>	'nosql_example_dynamo',
-		'table'		=>	'example_table',
-		'hash'		=>	1,
-		'range'		=>	1
-	));
-
 class Controller_NoSQL_Example_Dynamo extends Controller_NoSQL_Example
 {
 	public function before ()
@@ -342,25 +324,32 @@ class Controller_NoSQL_Example_Dynamo extends Controller_NoSQL_Example
 
 	public function action_query()
 	{
-		$table =$this->request->param('table');
-		$hash =(int) $this->request->param('hash');
+		try
+		{
+			$table =$this->request->param('table');
+			$hash =(int) $this->request->param('hash');
 
-		$time = 1334772600;
+			$time = 1334772600;
 
-		echo 'Current Time: ' . date('m-d-Y H:i:s', $time) . PHP_EOL;
+			echo 'Current Time: ' . date('m-d-Y H:i:s', $time) . PHP_EOL;
 
-		$options = array(
-			'ConsistentRead'	=>	TRUE,
-			'AttributesToGet'	=>	array('key1', 'key2', 'key6'),
-			'HashKeyValue'	=>	$hash
-		);
+			$options = array(
+				'ConsistentRead'	=>	TRUE,
+				'AttributesToGet'	=>	array('key1', 'key2', 'key6'),
+				'HashKeyValue'		=>	$hash
+			);
 
-		echo 'Query by hash on table ' . $table . ' with options' . PHP_EOL;
-		print_r($options);
+			echo 'Query by hash on table ' . $table . ' with options' . PHP_EOL;
+			print_r($options);
 
-		$results = $this->Dynamo->query($table, $options);
+			$results = $this->Dynamo->query($table, $options);
 
-		print_r($results);
+			print_r($results);
+		}
+		catch (Exception $e)
+		{
+			echo $e->getMessage();
+		}
 	}
 
 	public function action_delete_item()

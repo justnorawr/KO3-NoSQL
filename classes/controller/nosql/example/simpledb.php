@@ -9,13 +9,6 @@
  * @author		Nicholas Curtis		<nich.curtis@gmail.com>
  */
 
-Route::set('nosql_example_simpledb_all', 'example_simpledb(/<action>(/<domain>(/<item_name>)))')
-	->defaults(array(
-		'controller'	=>	'nosql_example_simpledb',
-		'domain'	=>	'example_domain',
-		'item_name'	=>	1
-	));
-
 class Controller_NoSQL_Example_SimpleDB extends Controller_NoSQL_Example
 {
 	public function before()

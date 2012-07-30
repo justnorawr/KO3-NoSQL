@@ -8,13 +8,6 @@
  * @author		Nicholas Curtis		<nich.curtis@gmail.com>
  */
 
-Route::set('nosql_example_mongo_all', 'example_mongo(/<action>(/<collection>(/<item_name>)))')
-	->defaults(array(
-		'controller'	=>	'nosql_example_mongo',
-		'collection'	=>	'example_collection',
-		'item_name'	=>	'4fab863bf01d9dfb12000000'
-	));
-
 class Controller_NoSQL_Example_Mongo extends Controller_NoSQL_Example
 {
 	public function before ()
