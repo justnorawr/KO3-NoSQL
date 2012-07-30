@@ -58,7 +58,7 @@ abstract class Kohana_NoSQL
 			$driver = 'NoSQL_'.ucfirst($config['type']);
 
 			// Create the nosql db connection instance
-			new $driver($name, $config);
+			NoSQL::$instances[$name] = new $driver($name, $config);
 		}
 
 		return NoSQL::$instances[$name];
