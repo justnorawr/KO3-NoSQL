@@ -19,7 +19,31 @@ class Kohana_NoSQL_Mongo extends NoSQL
 	{
 		parent::__construct($name, $config);
 
-		$this->_mongo = new Mongo($this->_config['server'].'/'.$this->_config['database']);
+		$options = array(
+			'timeout'	=>	$this->_config['timeout']
+		);
+
+		if (array_key_exists('database', $this->_config) AND ! empty($this->_config['database'])) {
+			$options['db'] = $this->_config['database'];
+		}
+
+		if (array_key_exists('replicaSet', $this->_config) AND ! empty($this->_config['replicaSet'])) {
+			$options['replicaSet'] = $this->_config['replicaSet'];
+		}
+
+		if (array_key_exists('connect', $this->_config) AND ! empty($this->_config['connect'])) {
+			$options['connect'] = $this->_config['connect'];
+		}
+
+		if (array_key_exists('username', $this->_config) AND ! empty($this->_config['username'])) {
+			$options['username'] = $this->_config['username'];
+		}
+
+		if (array_key_exists('password', $this->_config) AND ! empty($this->_config['password'])) {
+			$options['password'] = $this->_config['password'];
+		}
+
+		$this->_mongo = new Mongo($this->_config['server'], $options);
 
 		$this->_mongodb = $this->_mongo->selectDB($this->_config['database']);
 	}
