@@ -43,7 +43,7 @@ class Controller_NoSQL_Example_SimpleDB extends Controller_NoSQL_Example
 
 		try
 		{
-			$result = $this->SimpleDB->create($domain);
+			$result = $this->SimpleDB->create_store($domain);
 
 			echo 'Result: ';
 			var_dump($result);
@@ -68,7 +68,7 @@ class Controller_NoSQL_Example_SimpleDB extends Controller_NoSQL_Example
 
 		try
 		{
-			$result = $this->SimpleDB->delete($domain);
+			$result = $this->SimpleDB->delete_store($domain);
 
 			echo 'Result: ';
 			var_dump($result);

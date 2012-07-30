@@ -35,7 +35,7 @@ class Controller_NoSQL_Example_Mongo extends Controller_NoSQL_Example
 
 		try
 		{
-			$result = $this->Mongo->create($collection);
+			$result = $this->Mongo->create_store($collection);
 
 			echo 'Result: ';
 			var_dump($result);
@@ -61,7 +61,7 @@ class Controller_NoSQL_Example_Mongo extends Controller_NoSQL_Example
 
 		try
 		{
-			$result = $this->Mongo->delete($collection);
+			$result = $this->Mongo->delete_store($collection);
 
 			echo 'Result: ';
 			var_dump($result);

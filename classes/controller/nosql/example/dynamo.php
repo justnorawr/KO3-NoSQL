@@ -76,7 +76,7 @@ class Controller_NoSQL_Example_Dynamo extends Controller_NoSQL_Example
 
 		try
 		{
-			$result = $this->Dynamo->create($table, $options);
+			$result = $this->Dynamo->create_store($table, $options);
 
 			echo 'Result: '; var_dump($result);
 
@@ -116,7 +116,7 @@ class Controller_NoSQL_Example_Dynamo extends Controller_NoSQL_Example
 
 		try
 		{
-			$result = $this->Dynamo->update($table, $options);
+			$result = $this->Dynamo->update_store($table, $options);
 
 			if ($result === TRUE) {
 				echo 'Table Has Been Updated'. PHP_EOL;
@@ -142,7 +142,7 @@ class Controller_NoSQL_Example_Dynamo extends Controller_NoSQL_Example
 
 		try
 		{
-			$result = $this->Dynamo->delete($table);
+			$result = $this->Dynamo->delete_store($table);
 
 			if ($result === TRUE) {
 				echo 'Table Has Been Deleted'. PHP_EOL;

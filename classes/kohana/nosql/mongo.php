@@ -44,7 +44,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 	 * @param	array 		options array('capped'	=> (bool), 'size' => (int), 'max' => (int))
 	 * @return	MongoCollection
 	 */
-	public function create($collection, Array $options=array())
+	public function create_store($collection, Array $options=array())
 	{
 		if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
 			$benchmark = Profiler::start(__FUNCTION__, __METHOD__);
@@ -86,7 +86,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 	 *
 	 * @throws	Kohana_Exception
 	 */
-	public function update($collection, Array $options=array())
+	public function update_store($collection, Array $options=array())
 	{
 		throw new Kohana_Exception('Can not update Mongo collection');
 	}
@@ -97,7 +97,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 	 * @param	mixed		collection name or MongoCollection
 	 * @return	bool
 	 */
-	public function delete($collection)
+	public function delete_store($collection)
 	{
 		if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
 			$benchmark = Profiler::start(__FUNCTION__, __METHOD__);
@@ -323,7 +323,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 		}
 
 		if ( ! array_key_exists('item', $options) OR count($options['item']) <= 0) {
-			throw new Kohana_Exception('SimpleDB put item_name is required');
+			throw new Kohana_Exception('Mongo put item_name is required');
 		}
 		$item = $options['item'];
 		unset($options['item']);
@@ -439,8 +439,6 @@ class Kohana_NoSQL_Mongo extends NoSQL
 
 			if (isset($benchmark)) Profiler::stop($benchmark);
 
-			var_dump($result);
-
 			return $result;
 		}
 
@@ -450,15 +448,15 @@ class Kohana_NoSQL_Mongo extends NoSQL
 	}
 
 	/**
-	 * same as ::gets($collection, $query, array())
+	 * same as ::get_items($collection, $query, array())
 	 *
 	 * @param	string		domain name
 	 * @param	array 		SimpleDB SQL statement
 	 * @return 	array
 	 */
-	public function query($collection, $query=array())
+	public function query($collection, $query=array(), $fields=array())
 	{
-		return $this->gets($collection, $query);
+		return $this->get_items($collection, $fields);
 	}
 
 	/**
@@ -501,7 +499,8 @@ class Kohana_NoSQL_Mongo extends NoSQL
 
 		if (array_key_exists('ok', $response) AND (int) $response['ok'] === 1)
 		{
-			echo 'Response is OK' . PHP_EOL;
+			if (Kohana::$environment >= $this->_debug)
+				echo 'Response is OK' . PHP_EOL;
 			return true;
 		}
 

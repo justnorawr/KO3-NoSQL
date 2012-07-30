@@ -4,30 +4,22 @@ return array
 (
 	'dynamo' => array
 	(
-		'type'		=>	'dynamo',
+		'type'		=>	'aws_dynamo',
 		'debug'		=>	40,
 		'profiling'    	=>	TRUE,
 	),
 	'simpledb' => array
 	(
-		'type'		=>	'simpledb',
+		'type'		=>	'aws_simpledb',
 		'debug'		=>	40,
 		'profiling'	=>	TRUE,
 	),
 	'mongo' => array
 	(
 		'type'		=>	'mongo',
-		'server'		=>	'mongodb://YOURHOST:27017',
-		'database'	=>	'example_db',
+		'server'		=>	'mongodb://localhost:27017',
+		'database'	=>	'icig',
 		'debug'		=>	40,
 		'profiling'    	=>	TRUE,
-	),
-	'redis' => array
-	(
-		'type'		=>	'redis',
-		'server'		=>	'mongodb://YOURHOST:27017',
-		'database'	=>	'example_db',
-		'debug'		=>	40,
-		'profiling'    	=>	TRUE,
-	),
+	)
 );

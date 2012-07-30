@@ -28,7 +28,10 @@ class Kohana_NoSQL_AWS_Dynamo extends NoSQL_AWS
 	{
 		parent::__construct($name, $config);
 
-		$this->_dynamodb = new AmazonDynamoDB();
+		$aws_config = Kohana::$config->load('aws.credentials');
+		$aws_config = (array) $aws_config;
+
+		$this->_dynamodb = new AmazonDynamoDB( $aws_config['@default'] );
 	}
 
 	/**
@@ -50,7 +53,7 @@ class Kohana_NoSQL_AWS_Dynamo extends NoSQL_AWS
 	 * @param	array 	    	table options - unique to each nosql db type
 	 * @return	bool
 	 */
-	public function create($table, Array $options=array())
+	public function create_store($table, Array $options=array())
 	{
 		if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
 			$benchmark = Profiler::start(__FUNCTION__, __METHOD__);
@@ -112,7 +115,7 @@ class Kohana_NoSQL_AWS_Dynamo extends NoSQL_AWS
 	 * @param	array 	    	options
 	 * @return	array
 	 */
-	public function update($table, Array $options=array())
+	public function update_store($table, Array $options=array())
 	{
 		if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
 			$benchmark = Profiler::start(__FUNCTION__, __METHOD__);
@@ -175,7 +178,7 @@ class Kohana_NoSQL_AWS_Dynamo extends NoSQL_AWS
 	 * @param	string		table name
 	 * @return	array
 	 */
-	public function delete($table)
+	public function delete_store($table)
 	{
 		if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
 			$benchmark = Profiler::start(__FUNCTION__, __METHOD__);
