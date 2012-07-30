@@ -42,7 +42,8 @@ class Controller_NoSQL_Example_Mongo extends Controller_NoSQL_Example
 
 			if ($result === TRUE) {
 				echo 'Collection Has Been Created'. PHP_EOL;
-			} else {
+			}
+			else {
 				echo 'Failed To Create Collection'. PHP_EOL;
 			}
 		}
@@ -67,7 +68,8 @@ class Controller_NoSQL_Example_Mongo extends Controller_NoSQL_Example
 
 			if ($result === TRUE) {
 				echo 'Collection Has Been Deleted'. PHP_EOL;
-			} else {
+			}
+			else {
 				echo 'Failed To Delete Collection'. PHP_EOL;
 			}
 		}
@@ -176,7 +178,8 @@ class Controller_NoSQL_Example_Mongo extends Controller_NoSQL_Example
 
 			if ($result === TRUE) {
 				echo 'Item Has Been Sent'. PHP_EOL;
-			} else {
+			}
+			else {
 				echo 'Failed To Send Item'. PHP_EOL;
 			}
 		}
@@ -210,7 +213,8 @@ class Controller_NoSQL_Example_Mongo extends Controller_NoSQL_Example
 
 			if ($result === TRUE) {
 				echo 'Item Has Been Sent'. PHP_EOL;
-			} else {
+			}
+			else {
 				echo 'Failed To Send Item'. PHP_EOL;
 			}
 		}
@@ -240,7 +244,8 @@ class Controller_NoSQL_Example_Mongo extends Controller_NoSQL_Example
 
 			if ($result === TRUE) {
 				echo 'Item Has Been Deleted'. PHP_EOL;
-			} else {
+			}
+			else {
 				echo 'Failed To Delete Item'. PHP_EOL;
 			}
 		}
