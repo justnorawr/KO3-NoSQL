@@ -18,7 +18,10 @@ class Controller_NoSQL_Admin extends Controller_Template_Twig
 	public function before ()
 	{
 		parent::before();
+	}
 
+	public function action_index()
+	{
 		$configurations = Kohana::$config->load('nosql');
 
 		$databases = array();
@@ -41,11 +44,6 @@ class Controller_NoSQL_Admin extends Controller_Template_Twig
 		}
 
 		$this->template->set('databases', $databases);
-	}
-
-	public function action_index()
-	{
-		
 	}
 	
 	/**
