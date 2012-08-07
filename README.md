@@ -1,7 +1,32 @@
 KO3-NoSQL
 =========
 
-NoSQL abstraction layer for AWS Dynamo DB, AWS Simple DB, Mongo DB, and Redis. Includes nosql database abstraction layer and session / cache libraries for Kohana 3.
+NoSQL abstraction layer for AWS Dynamo DB, AWS Simple DB, Mongo DB.
+
+3.2 Current Features
+  - nosql database abstraction layer with support for AWS Dynamo DB, AWS Simple DB, Mongo DB
+  - nosql auth driver for Mongo DB
+
+Future
+  - nosql session driver for Kohana with support for AWS Dynamo DB, AWS Simple DB, Mongo DB
+  - nosql cache driver for Kohana with support for AWS Dynamo DB, AWS Simple DB, Mongo DB
+  - nosql auth driver support for AWS Dynamo DB and AWS Simple DB
+
+
+Example Mongo
+=========
+
+
+
+Example AWS Dynamo DB
+=========
+
+
+
+Example AWS Simple DB
+=========
+
+
 
 License
 =========
