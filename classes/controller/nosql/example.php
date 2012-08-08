@@ -8,7 +8,7 @@
  * @category		AmazonWebServices
  * @author		Nicholas Curtis		<nich.curtis@gmail.com>
  */
-class Controller_NoSQL_Example extends Controller_Twig
+class Controller_NoSQL_Example extends Controller_Template_Twig
 {
 	public function before ()
 	{
