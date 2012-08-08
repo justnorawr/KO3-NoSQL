@@ -353,7 +353,7 @@ class Kohana_NoSQL_AWS_Dynamo extends NoSQL_AWS
 			$get_benchmark = Profiler::start(__FUNCTION__, 'AmazonDynamoDB::get');
 		}
 
-		$response = $this->_dynamodb->get($options);
+		$response = $this->_dynamodb->get_item($options);
 
 		if (isset($get_benchmark)) Profiler::stop($get_benchmark);
 
@@ -438,7 +438,7 @@ class Kohana_NoSQL_AWS_Dynamo extends NoSQL_AWS
 			$get_benchmark = Profiler::start(__FUNCTION__, 'AmazonDynamoDB::batch_get');
 		}
 
-		$response = $this->_dynamodb->batch_get($options);
+		$response = $this->_dynamodb->batch_get_item($options);
 
 		if (isset($get_benchmark)) Profiler::stop($get_benchmark);
 
@@ -494,7 +494,7 @@ class Kohana_NoSQL_AWS_Dynamo extends NoSQL_AWS
 			$put_benchmark = Profiler::start(__FUNCTION__, 'AmazonDynamoDB::put');
 		}
 
-		$response = $this->_dynamodb->put($options);
+		$response = $this->_dynamodb->put_item($options);
 
 		if (isset($put_benchmark)) Profiler::stop($put_benchmark);
 
@@ -542,7 +542,7 @@ class Kohana_NoSQL_AWS_Dynamo extends NoSQL_AWS
 			$update_benchmark = Profiler::start(__FUNCTION__, 'AmazonDynamoDB::update');
 		}
 
-		$response = $this->_dynamodb->update($options);
+		$response = $this->_dynamodb->update_item($options);
 
 		if (isset($update_benchmark)) Profiler::stop($update_benchmark);
 
@@ -588,7 +588,7 @@ class Kohana_NoSQL_AWS_Dynamo extends NoSQL_AWS
 			$del_benchmark = Profiler::start(__FUNCTION__, 'AmazonDynamoDB::delete');
 		}
 
-		$response = $dynamodb->delete($$options);
+		$response = $dynamodb->delete_item($$options);
 
 		if (isset($del_benchmark)) Profiler::stop($del_benchmark);
 
