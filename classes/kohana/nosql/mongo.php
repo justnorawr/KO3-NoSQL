@@ -19,9 +19,14 @@ class Kohana_NoSQL_Mongo extends NoSQL
 	{
 		parent::__construct($name, $config);
 
-		$options = array(
-			'timeout'	=>	$this->_config['timeout']
-		);
+		$options = array();
+
+		$timeout = (int) $this->_config['timeout'];
+		if (array_key_exists('timeout', $this->_config) AND $timeout > 0) {
+			$options['timeout'] = $timeout;
+		} else {
+			$options['timeout'] = 100;
+		}
 
 		if (array_key_exists('database', $this->_config) AND ! empty($this->_config['database'])) {
 			$options['db'] = $this->_config['database'];
