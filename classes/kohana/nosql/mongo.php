@@ -163,7 +163,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 	}
 
 	/**
-	 * Returns count of items items in simpledb domain
+	 * Returns count of items items in mongo collection
 	 *
 	 * @uses	http://www.php.net/manual/en/mongocollection.count.php
 	 *
@@ -479,13 +479,13 @@ class Kohana_NoSQL_Mongo extends NoSQL
 	/**
 	 * same as ::get_items($collection, $query, array())
 	 *
-	 * @param	string		domain name
-	 * @param	array 		SimpleDB SQL statement
-	 * @return 	array
+	 * @param	string		collection name
+	 * @param	array		mongo db query
+	 * @return	MongoCursor
 	 */
-	public function query($collection, $query=array(), $fields=array())
+	public function query($collection, $query=array())
 	{
-		return $this->get_items($collection, $fields);
+		return $this->get_items($collection, $query);
 	}
 
 	/**
