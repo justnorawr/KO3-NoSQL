@@ -313,10 +313,22 @@ class Kohana_NoSQL_Mongo extends NoSQL
 				$find_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::find');
 			}
 
-			if (count($fields) > 0)
-				$items = $collection->find($query, $fields);
-			else
-				$items = $collection->find($query);
+			$start = $limit = FALSE;
+
+			if ( array_key_exists('$limit', $query) AND array_key_exists('$offset', $query) )
+			{
+				$start = $query['$offset'];
+				$limit = $query['$limit'];
+			}
+			unset($query['$limit']);
+			unset($query['$offset']);
+
+			$items = $collection->find($query, $fields);
+
+			if ($start !== FALSE AND $limit !== FALSE)
+			{	
+				$items->skip($start)->limit($limit);
+			}
 
 			if (isset($find_benchmark)) Profiler::stop($find_benchmark);
 
