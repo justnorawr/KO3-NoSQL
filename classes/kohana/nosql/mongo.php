@@ -138,7 +138,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 		if ($collection !== false)
 		{
 			if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
-				$del_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::drop');
+				$del_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::delete_store');
 			}
 
 			$response = $collection->drop();
@@ -147,7 +147,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 
 			if (Kohana::$environment >= $this->_debug)
 			{
-				echo 'MongoCollection::drop: ';
+				echo 'MongoCollection::delete_store: ';
 				var_dump($response);
 			}
 
@@ -182,7 +182,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 		if ($collection !== false)
 		{
 			if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
-				$find_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::find');
+				$find_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::count');
 			}
 
 			$count = $collection->count($query);
@@ -191,7 +191,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 
 			if (Kohana::$environment >= $this->_debug)
 			{
-				echo 'MongoCollection::find: ';
+				echo 'MongoCollection::count: ';
 				var_dump($count);
 			}
 
@@ -266,7 +266,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 		if ($collection !== false)
 		{
 			if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
-				$find_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::find');
+				$find_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::get');
 			}
 
 			$item = $collection->findOne(array('_id' => new MongoId($item_name)), $fields);
@@ -275,7 +275,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 
 			if (Kohana::$environment >= $this->_debug)
 			{
-				echo 'MongoCollection::find: ';
+				echo 'MongoCollection::get: ';
 				var_dump($item);
 			}
 
@@ -310,7 +310,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 		if ($collection !== false)
 		{
 			if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
-				$find_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::find');
+				$find_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::get_items');
 			}
 
 			$start = $limit = FALSE;
@@ -334,7 +334,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 
 			if (Kohana::$environment >= $this->_debug)
 			{
-				echo 'MongoCollection::find returned ' . (int) $items->count() . ' documents' . PHP_EOL;
+				echo 'MongoCollection::get_items returned ' . (int) $items->count() . ' documents' . PHP_EOL;
 			}
 
 			if (isset($benchmark)) Profiler::stop($benchmark);
@@ -374,7 +374,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 		if ($collection !== false)
 		{
 			if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
-				$ins_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::insert');
+				$ins_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::put');
 			}
 
 			$result = $collection->insert($item, $options);
@@ -383,7 +383,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 
 			if (Kohana::$environment >= $this->_debug)
 			{
-				echo 'MongoCollection::insert: ';
+				echo 'MongoCollection::put: ';
 				var_dump($result);
 			}
 
@@ -465,7 +465,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 		if ($collection !== false)
 		{
 			if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
-				$find_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::remove');
+				$find_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::delete');
 			}
 
 			$result = $collection->remove($query, $options);
@@ -474,7 +474,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 
 			if (Kohana::$environment >= $this->_debug)
 			{
-				echo 'MongoCollection::update: ';
+				echo 'MongoCollection::delete: ';
 				var_dump($result);
 			}
 
