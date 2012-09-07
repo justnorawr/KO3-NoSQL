@@ -5,7 +5,7 @@ return array(
 		'@default' => array(
 			'key' => 'YOURAPIKEY',
 			'secret' => 'YOURSECRET',
-			'default_cache_config' => APPPATH . 'cache/aws',
+			'default_cache_config' => APPPATH . 'cache' . DIRECTORY_SEPARATOR . 'aws',
 			'certificate_authority' => false
 		)
 	)
