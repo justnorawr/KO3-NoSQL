@@ -29,7 +29,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 		{
 			$query = array('username' => $username, 'password' => $password);
 
-			// query for user 
+			// query for user
 			$results = $this->db->get_items($this->_config['table_name'], $query);
 
 			if ($results->count() === 1)
