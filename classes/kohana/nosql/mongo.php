@@ -269,7 +269,10 @@ class Kohana_NoSQL_Mongo extends NoSQL
 				$find_benchmark = Profiler::start(__FUNCTION__, 'MongoCollection::get');
 			}
 
-			$item = $collection->findOne(array('_id' => new MongoId($item_name)), $fields);
+			if(is_array($item_name))
+				$item = $collection->findOne($item_name, $fields);
+			else
+				$item = $collection->findOne(array('_id' => new MongoId($item_name)), $fields);
 
 			if (isset($find_benchmark)) Profiler::stop($find_benchmark);
 
