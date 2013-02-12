@@ -131,20 +131,14 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 				'username'	=>	$user['username']
 			);
 
-			$updates = array
-			(
-				'$set' => array
-				(
-					'lastlogin'	=>	time()
-				),
-				'$inc'		=>	array(
-					'logins'		=>	1,
-				),
+			$updates = array (
+				'$set' => array('lastlogin'	=>	time() , 'logins' => $user['logins'] + 1)
 			);
 
 			$result = $this->db->update($this->_config['table_name'], $query, $updates);
 
-			if ($result === TRUE) {
+			if ($result === TRUE)
+			{
 				return parent::complete_login($user);
 			}
 			else {
