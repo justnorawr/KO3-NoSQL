@@ -135,11 +135,11 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 			(
 				'$set' => array
 				(
-					$inc		=	array(
-						'logins'		=>	1,
-					),
 					'lastlogin'	=>	time()
-				)
+				),
+				'$inc'		=>	array(
+					'logins'		=>	1,
+				),
 			);
 
 			$result = $this->db->update($this->_config['table_name'], $query, $updates);
