@@ -171,8 +171,12 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 
 			if ($result === TRUE)
 			{
+				var_dump($remember);
+
 				if ($remember)
 				{
+					var_dump($remember);
+
 					// generate token to store in cookie for remember me function
 					$token = $this->_createToken($user);
 
@@ -183,6 +187,9 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 						'token'		=>	$this->_hashToken($token)
 					)));
 				}
+
+				var_dump(func_get_args());
+				exit;
 
 				// Regenerate session_id
 				$this->_session->regenerate();
