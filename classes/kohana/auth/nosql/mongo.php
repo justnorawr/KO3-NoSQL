@@ -141,7 +141,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 
 	protected function _createToken ($user)
 	{
-		$token = md5(md5($user['username']) . md5(rand(0, 1000))) . md5(implode(',', $user));
+		$token = md5(md5($user['username']) . md5(rand(0, 1000)));
 
 		return $token;
 	}
