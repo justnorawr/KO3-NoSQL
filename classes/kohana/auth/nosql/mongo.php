@@ -71,7 +71,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 				
 				unset($user['password']);
 
-				return $this->complete_login($user);
+				return $this->complete_login($user, FALSE);
 			}
 		}
 		catch (Exception $e)
@@ -148,7 +148,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 
 	protected function _hashToken ($token)
 	{
-		$hash = $token;
+		$hash = md5($token);
 		return $hash;
 	}
 
@@ -178,10 +178,13 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 
 					Cookie::set('ycmdautotoken', $token, 10080);
 
-					$this->db->insert('user_tokens', array('username' => $user['username'], 'token' => $this->_hashToken($token)));
+					$this->db->put('user_tokens', array('item' => array(
+						'username'	=>	$user['username'],
+						'token'		=>	$this->_hashToken($token))
+					);
 				}
 
-				return parent::complete_login($user);
+				return parent::complete_login($user, $remember);
 			}
 			else {
 				return FALSE;
