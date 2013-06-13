@@ -188,7 +188,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 				$this->_session->regenerate();
 
 				// Store username in session
-				$this->_session->set($this->_config['session_key'], $user);
+				return $this->_session->set($this->_config['session_key'], $user);
 			}
 			else {
 				return FALSE;
