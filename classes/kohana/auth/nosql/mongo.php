@@ -160,7 +160,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 	 * @param	bool		remember
 	 * @return 	void
 	 */
-	protected function complete_login($user, $remember=false)
+	public function complete_login($user, $remember=false)
 	{
 		try
 		{
@@ -184,7 +184,11 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 					);
 				}
 
-				return parent::complete_login($user, $remember);
+				// Regenerate session_id
+				$this->_session->regenerate();
+
+				// Store username in session
+				$this->_session->set($this->_config['session_key'], $user);
 			}
 			else {
 				return FALSE;
