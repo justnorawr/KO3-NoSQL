@@ -169,12 +169,8 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 			$updates = array ('$set' => array('lastlogin'	=>	time() , 'logins' => $user['logins'] + 1));
 			$result = $this->db->update($this->_config['table_name'], $query, $updates);
 
-			var_dump($result);
-
 			if ($result === TRUE)
 			{
-				var_dump($remember);
-
 				if ($remember)
 				{
 					// generate token to store in cookie for remember me function
@@ -189,9 +185,6 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 						'token'		=>	$this->_hashToken($token)
 					)));
 				}
-
-				var_dump(func_get_args());
-				exit;
 
 				// Regenerate session_id
 				$this->_session->regenerate();
