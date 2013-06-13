@@ -171,7 +171,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 
 			if ($result === TRUE)
 			{
-				if ($remember === TRUE)
+				if ($remember)
 				{
 					// generate token to store in cookie for remember me function
 					$token = $this->_createToken($user);
