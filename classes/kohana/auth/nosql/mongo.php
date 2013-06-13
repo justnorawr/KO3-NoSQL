@@ -141,7 +141,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 
 	protected function _createToken ($user)
 	{
-		$token = md5($user['username'], rand(0, 1000), implode('.', $user));
+		$token = md5($user['username'], rand(0, 1000), implode($user));
 
 		return $token;
 	}
@@ -175,8 +175,6 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 				{
 					// generate token to store in cookie for remember me function
 					$token = $this->_createToken($user);
-
-					var_dump($token);
 
 					Cookie::set('ycmdautotoken', $token, 10080);
 
