@@ -180,7 +180,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 
 					$this->db->put('user_tokens', array('item' => array(
 						'username'	=>	$user['username'],
-						'token'		=>	$this->_hashToken($token))
+						'token'		=>	$this->_hashToken($token)
 					);
 				}
 
