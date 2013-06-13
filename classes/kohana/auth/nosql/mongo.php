@@ -162,8 +162,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 	 */
 	public function complete_login($user, $remember=false)
 	{
-		try
-		{
+		
 			// update user information
 			$query = array('username'	=>	$user['username']);
 			$updates = array ('$set' => array('lastlogin'	=>	time() , 'logins' => $user['logins'] + 1));
@@ -202,11 +201,5 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 			else {
 				return FALSE;
 			}
-		}
-		catch (Exception $e)
-		{
-			throw $e;
-			return FALSE;
-		}
 	}
 } // End Auth NoSQL Mongo
