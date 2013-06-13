@@ -117,28 +117,69 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 	}
 
 	/**
+	 * Gets the currently logged in user from the session.
+	 * Returns NULL if no user is currently logged in.
+	 *
+	 * @return  mixed
+	 */
+	public function get_user($default = NULL)
+	{
+		$token = Cookie::get('ycmdautotoken');
+		
+		if ( ! empty($token) )
+		{
+			$query = array('token' => $this->_hashToken($token));
+			$result = $this->db->get('user_tokens', $query, array());
+
+			if ($result === TRUE) {
+				$this->force_login($result['username']);
+			}
+		}
+
+		return $this->_session->get($this->_config['session_key'], $default);
+	}
+
+	protected function _createToken ($user)
+	{
+		$token = md5(md5($user['username']) . md5(rand(0, 1000))) . md5(implode(',', $user));
+
+		return $token;
+	}
+
+	protected function _hashToken ($token)
+	{
+		$hash = $token;
+		return $hash;
+	}
+
+	/**
 	 * Complete the login for a user by incrementing the logins and setting
 	 * session data: user_id, username
 	 *
 	 * @param	string		username
+	 * @param	bool		remember
 	 * @return 	void
 	 */
-	protected function complete_login($user)
+	protected function complete_login($user, $remember=false)
 	{
 		try
 		{
-			$query = array(
-				'username'	=>	$user['username']
-			);
-
-			$updates = array (
-				'$set' => array('lastlogin'	=>	time() , 'logins' => $user['logins'] + 1)
-			);
-
+			// update user information
+			$query = array('username'	=>	$user['username']);
+			$updates = array ('$set' => array('lastlogin'	=>	time() , 'logins' => $user['logins'] + 1));
 			$result = $this->db->update($this->_config['table_name'], $query, $updates);
 
 			if ($result === TRUE)
 			{
+				if ($remember === TRUE)
+				{
+					// generate token to store in cookie for remember me function
+					$token = $this->_createToken($user);
+
+					Cookie::set('ycmdautotoken', $token, 10080);
+					$this->db->insert('user_tokens', array('username' => $user['username'], 'token' => $this->_hashToken($token));
+				}
+
 				return parent::complete_login($user);
 			}
 			else {
