@@ -169,16 +169,18 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 			$updates = array ('$set' => array('lastlogin'	=>	time() , 'logins' => $user['logins'] + 1));
 			$result = $this->db->update($this->_config['table_name'], $query, $updates);
 
+			var_dump($result);
+
 			if ($result === TRUE)
 			{
 				var_dump($remember);
 
 				if ($remember)
 				{
-					var_dump($remember);
-
 					// generate token to store in cookie for remember me function
 					$token = $this->_createToken($user);
+
+					var_dump($token);
 
 					Cookie::set('ycmdautotoken', $token, 10080);
 
@@ -198,12 +200,14 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 				return $this->_session->set($this->_config['session_key'], $user);
 			}
 			else {
-				return FALSE;
+				var_dump(func_get_args());
+				exit;return FALSE;
 			}
 		}
 		catch (Exception $e)
 		{
-			return FALSE;
+			var_dump(func_get_args());
+				exit;return FALSE;
 		}
 	}
 } // End Auth NoSQL Mongo
