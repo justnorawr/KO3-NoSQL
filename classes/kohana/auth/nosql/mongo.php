@@ -200,14 +200,13 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 				return $this->_session->set($this->_config['session_key'], $user);
 			}
 			else {
-				var_dump(func_get_args());
-				exit;return FALSE;
+				return FALSE;
 			}
 		}
 		catch (Exception $e)
 		{
-			var_dump(func_get_args());
-				exit;return FALSE;
+			throw $e;
+			return FALSE;
 		}
 	}
 } // End Auth NoSQL Mongo
