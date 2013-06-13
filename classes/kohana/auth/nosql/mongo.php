@@ -129,7 +129,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 		if ( ! empty($token) )
 		{
 			$query = array('token' => $this->_hashToken($token));
-			$result = $this->db->get('user_tokens', $query, array());
+			$result = $this->db->get('user_tokens', $query, array('username'));
 
 			if ($result === TRUE) {
 				$this->force_login($result['username']);
@@ -141,7 +141,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 
 	protected function _createToken ($user)
 	{
-		$token = md5(md5($user['username']) . md5(rand(0, 1000)));
+		$token = md5($user['username'], rand(0, 1000), implode('.', $user));
 
 		return $token;
 	}
