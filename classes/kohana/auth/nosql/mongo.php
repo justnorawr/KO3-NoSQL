@@ -126,16 +126,12 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 	{
 		$token = Cookie::get('ycmdautotoken');
 
-		var_dump($token);
-		
 		if ( ! empty($token) )
 		{
-			var_dump($this->_hashToken($token));
-			
 			$query = array('token' => $this->_hashToken($token));
 			$result = $this->db->get('user_tokens', $query, array('username'));
 
-			if ($result === TRUE) {
+			if ($result) {
 				$this->force_login($result['username']);
 			}
 		}
