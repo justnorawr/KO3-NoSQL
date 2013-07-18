@@ -132,6 +132,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 			$result = $this->db->get('user_tokens', $query, array('username'));
 
 			if ($result) {
+				Cookie::set('ycmdautotoken', $token, 86400*30);
 				$this->force_login($result['username']);
 			}
 		}
@@ -176,7 +177,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 					// generate token to store in cookie for remember me function
 					$token = $this->_createToken($user);
 
-					Cookie::set('ycmdautotoken', $token, 10080);
+					Cookie::set('ycmdautotoken', $token, 86400*30);
 
 					$this->db->put('user_tokens', array('item' => array(
 						'username'	=>	$user['username'],
