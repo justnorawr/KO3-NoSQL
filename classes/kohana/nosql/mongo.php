@@ -311,7 +311,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 	 * @param	array 		attributes to return
 	 * @return	MongoCursor
 	 */
-	public function get_items($collection, Array $query=array(), Array $fields=array())
+	public function get_items($collection, Array $query=array(), Array $fields=array(), array $sort=array())
 	{
 		if ($this->_config['profiling'] === TRUE AND Kohana::$profiling === TRUE) {
 			$benchmark = Profiler::start(__FUNCTION__, __METHOD__);
@@ -336,6 +336,11 @@ class Kohana_NoSQL_Mongo extends NoSQL
 			unset($query['$offset']);
 
 			$items = $collection->find($query, $fields);
+
+			if (count($sort) > 0)
+			{
+				$items->sort($sort);
+			}
 
 			if ($start !== FALSE AND $limit !== FALSE)
 			{	

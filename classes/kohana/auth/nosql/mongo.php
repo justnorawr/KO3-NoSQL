@@ -38,7 +38,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 				
 				unset($user['password']);
 
-				return $this->complete_login($user);
+				return $this->complete_login($user, $remember);
 			}
 		}
 		catch (Exception $e)
@@ -71,7 +71,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 				
 				unset($user['password']);
 
-				return $this->complete_login($user);
+				return $this->complete_login($user, FALSE);
 			}
 		}
 		catch (Exception $e)
@@ -117,29 +117,79 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 	}
 
 	/**
+	 * Gets the currently logged in user from the session.
+	 * Returns NULL if no user is currently logged in.
+	 *
+	 * @return  mixed
+	 */
+	public function get_user($default = NULL)
+	{
+		$token = Cookie::get('ycmdautotoken');
+
+		if ( ! empty($token) )
+		{
+			$query = array('token' => $this->_hashToken($token));
+			$result = $this->db->get('user_tokens', $query, array('username'));
+
+			if ($result) {
+				Cookie::set('ycmdautotoken', $token, 86400*30);
+				$this->force_login($result['username']);
+			}
+		}
+
+		return $this->_session->get($this->_config['session_key'], $default);
+	}
+
+	protected function _createToken ($user)
+	{
+		$token = sha1($user['username'], openssl_random_pseudo_bytes(5));
+
+		return $token;
+	}
+
+	protected function _hashToken ($token)
+	{
+		$hash = sha1($token);
+		return $hash;
+	}
+
+	/**
 	 * Complete the login for a user by incrementing the logins and setting
 	 * session data: user_id, username
 	 *
 	 * @param	string		username
+	 * @param	bool		remember
 	 * @return 	void
 	 */
-	protected function complete_login($user)
+	public function complete_login($user, $remember=false)
 	{
 		try
 		{
-			$query = array(
-				'username'	=>	$user['username']
-			);
-
-			$updates = array (
-				'$set' => array('lastlogin'	=>	time() , 'logins' => $user['logins'] + 1)
-			);
-
+			// update user information
+			$query = array('username'	=>	$user['username']);
+			$updates = array ('$set' => array('lastlogin'	=>	time() , 'logins' => $user['logins'] + 1));
 			$result = $this->db->update($this->_config['table_name'], $query, $updates);
 
 			if ($result === TRUE)
 			{
-				return parent::complete_login($user);
+				if ($remember)
+				{
+					// generate token to store in cookie for remember me function
+					$token = $this->_createToken($user);
+
+					Cookie::set('ycmdautotoken', $token, 86400*30);
+
+					$this->db->put('user_tokens', array('item' => array(
+						'username'	=>	$user['username'],
+						'token'		=>	$this->_hashToken($token)
+					)));
+				}
+
+				// Regenerate session_id
+				$this->_session->regenerate();
+
+				// Store username in session
+				return $this->_session->set($this->_config['session_key'], $user);
 			}
 			else {
 				return FALSE;
@@ -147,6 +197,7 @@ class Kohana_Auth_NoSQL_Mongo extends Auth_NoSQL
 		}
 		catch (Exception $e)
 		{
+			var_dump($e);
 			return FALSE;
 		}
 	}
