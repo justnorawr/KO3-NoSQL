@@ -272,7 +272,16 @@ class Kohana_NoSQL_Mongo extends NoSQL
 			if(is_array($item_name))
 				$item = $collection->findOne($item_name, $fields);
 			else
-				$item = $collection->findOne(array('_id' => new MongoId($item_name)), $fields);
+			{
+				try
+				{
+					$item = $collection->findOne(array('_id' => new MongoId($item_name)), $fields);
+				}
+				catch(Exception $e)
+				{
+					return false;
+				}
+			}
 
 			if (isset($find_benchmark)) Profiler::stop($find_benchmark);
 
