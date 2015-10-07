@@ -23,9 +23,9 @@ class Kohana_NoSQL_Mongo extends NoSQL
 
 		$timeout = (int) $this->_config['timeout'];
 		if (array_key_exists('timeout', $this->_config) AND $timeout > 0) {
-			$options['timeout'] = $timeout;
+			$options['connectTimeoutMS'] = $timeout;
 		} else {
-			$options['timeout'] = 100;
+			$options['connectTimeoutMS'] = 100;
 		}
 
 		if (array_key_exists('database', $this->_config) AND ! empty($this->_config['database'])) {
