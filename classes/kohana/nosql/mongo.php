@@ -48,7 +48,7 @@ class Kohana_NoSQL_Mongo extends NoSQL
 			$options['password'] = $this->_config['password'];
 		}
 
-		$this->_mongo = new Mongo($this->_config['server'], $options);
+		$this->_mongo = new MongoClient($this->_config['server'], $options);
 
 		$this->_mongodb = $this->_mongo->selectDB($this->_config['database']);
 	}
